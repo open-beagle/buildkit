@@ -36,9 +36,9 @@ steps:
         from_secret: SOCKS5_PROXY
 
   - name: build
-    image: registry-vpc.cn-qingdao.aliyuncs.com/wod/golang:1.22
+    image: registry-vpc.cn-qingdao.aliyuncs.com/wod/golang:1.22-alpine
     environment:
-      VERSION: v2.0.0-rc.4-beagle
+      BUILD_VERSION: v0.16.0
     commands:
       - bash src/build.sh
 

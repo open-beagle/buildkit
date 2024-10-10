@@ -7,9 +7,7 @@
 [buildkit](https://github.com/moby/buildkit)
 
 ```bash
-# tonistiigi/xx
-docker pull tonistiigi/xx:
-
+docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-alpine && \
 docker run -it --rm \
   -v $PWD/:/go/src/github.com/open-beagle/buildkit \
   -w /go/src/github.com/open-beagle/buildkit \
@@ -21,12 +19,14 @@ docker run -it --rm \
 
 ```bash
 docker run -it --rm \
-  -v /etc/kubernetes/downloads:/etc/kubernetes/downloads \
-  registry.cn-qingdao.aliyuncs.com/wod/buildkit:v1.31.1 \
-  cp /bin/crictl /etc/kubernetes/downloads/crictl-linux-v1.31.1 && \
-mkdir -p /opt/bin && \
-ln -s /etc/kubernetes/downloads/crictl-linux-v1.31.1 /opt/bin/crictl && \
-chmod +x /etc/kubernetes/downloads/crictl-linux-v1.31.1
+  -v /opt/bin:/opt/bin \
+  registry.cn-qingdao.aliyuncs.com/wod/buildkit:v0.16.0 \
+  cp /usr/bin/buildctl /opt/bin/buildctl-linux-v0.16.0 && \
+  ln -s /opt/bin/buildctl-linux-v0.16.0 /opt/bin/buildctl && \
+  chmod +x /opt/bin/buildctl-linux-v0.16.0 && \
+  cp /usr/bin/buildkitd /opt/bin/buildkitd-linux-v0.16.0 && \
+  ln -s /opt/bin/buildkitd-linux-v0.16.0 /opt/bin/buildkitd && \
+  chmod +x /opt/bin/buildkitd-linux-v0.16.0 
 ```
 
 ## cache
