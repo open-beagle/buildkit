@@ -21,12 +21,14 @@ docker run -it --rm \
 docker run -it --rm \
   -v /opt/bin:/opt/bin \
   registry.cn-qingdao.aliyuncs.com/wod/buildkit:v0.16.0 \
-  cp /usr/bin/buildctl /opt/bin/buildctl-linux-v0.16.0 && \
-  ln -s /opt/bin/buildctl-linux-v0.16.0 /opt/bin/buildctl && \
-  chmod +x /opt/bin/buildctl-linux-v0.16.0 && \
-  cp /usr/bin/buildkitd /opt/bin/buildkitd-linux-v0.16.0 && \
-  ln -s /opt/bin/buildkitd-linux-v0.16.0 /opt/bin/buildkitd && \
-  chmod +x /opt/bin/buildkitd-linux-v0.16.0 
+  ash -c 'cp /usr/bin/buildctl /opt/bin/buildctl-linux-v0.16.0 && \
+    rm -rf /opt/bin/buildctl && \
+    ln -s /opt/bin/buildctl-linux-v0.16.0 /opt/bin/buildctl && \
+    chmod +x /opt/bin/buildctl-linux-v0.16.0 && \
+    cp /usr/bin/buildkitd /opt/bin/buildkitd-linux-v0.16.0 && \
+    rm -rf /opt/bin/buildkitd && \
+    ln -s /opt/bin/buildkitd-linux-v0.16.0 /opt/bin/buildkitd && \
+    chmod +x /opt/bin/buildkitd-linux-v0.16.0'
 ```
 
 ## cache
