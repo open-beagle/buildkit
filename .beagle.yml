@@ -42,6 +42,13 @@ steps:
     commands:
       - bash src/build.sh
 
+  - name: build-loong64
+    image: registry-vpc.cn-qingdao.aliyuncs.com/wod/golang:1.22-loongnix
+    environment:
+      BUILD_VERSION: v0.16.0
+    commands:
+      - bash src/buildkit-loong64.sh
+
   - name: docker-amd64
     image: registry-vpc.cn-qingdao.aliyuncs.com/wod/devops-docker:1.0
     volumes:
@@ -78,10 +85,28 @@ steps:
       registry_password:
         from_secret: REGISTRY_PASSWORD_ALIYUN
 
+  - name: docker-loong64
+    image: registry-vpc.cn-qingdao.aliyuncs.com/wod/devops-docker:1.0
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    settings:
+      dockerfile: .beagle/dockerfile
+      base: registry-vpc.cn-qingdao.aliyuncs.com/wod/alpine:3-amd64
+      repo: wod/buildkit
+      version: v0.16.0
+      channel: loong64
+      args: "TARGETOS=linux,TARGETARCH=loong64"
+      registry: registry-vpc.cn-qingdao.aliyuncs.com
+      registry_user:
+        from_secret: REGISTRY_USER_ALIYUN
+      registry_password:
+        from_secret: REGISTRY_PASSWORD_ALIYUN
+
   - name: docker-arch
     image: registry-vpc.cn-qingdao.aliyuncs.com/wod/devops-docker-manifest:1.0
     settings:
-      platforms: linux/amd64,linux/arm64
+      platforms: linux/amd64,linux/arm64,linux/loong64
       template: registry-vpc.cn-qingdao.aliyuncs.com/wod/buildkit:v0.16.0-ARCH
       target: registry-vpc.cn-qingdao.aliyuncs.com/wod/buildkit:v0.16.0
       username:

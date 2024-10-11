@@ -7,12 +7,20 @@
 [buildkit](https://github.com/moby/buildkit)
 
 ```bash
+# build cross
 docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-alpine && \
 docker run -it --rm \
   -v $PWD/:/go/src/github.com/open-beagle/buildkit \
   -w /go/src/github.com/open-beagle/buildkit \
   registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-alpine \
   bash src/build.sh
+
+# build loong64
+docker run -it --rm \
+  -v $PWD/:/go/src/github.com/open-beagle/buildkit \
+  -w /go/src/github.com/open-beagle/buildkit \
+  registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-loongnix \
+  bash src/buildkit-loong64.sh
 ```
 
 ## deploy
