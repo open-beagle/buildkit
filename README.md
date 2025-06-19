@@ -8,19 +8,14 @@
 
 ```bash
 # build cross
-docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-alpine && \
+docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.24-alpine && \
 docker run -it --rm \
   -v $PWD/:/go/src/github.com/open-beagle/buildkit \
   -w /go/src/github.com/open-beagle/buildkit \
-  registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-alpine \
+  -e BUILD_VERSION=v0.23.0 \
+  -e BUILD_SOCKS5=$SOCKS5_PROXY_LOCAL \
+  registry.cn-qingdao.aliyuncs.com/wod/golang:1.24-alpine \
   bash src/build.sh
-
-# build loong64
-docker run -it --rm \
-  -v $PWD/:/go/src/github.com/open-beagle/buildkit \
-  -w /go/src/github.com/open-beagle/buildkit \
-  registry.cn-qingdao.aliyuncs.com/wod/golang:1.22-loongnix \
-  bash src/buildkit-loong64.sh
 ```
 
 ## deploy

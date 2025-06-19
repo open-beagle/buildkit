@@ -4,14 +4,17 @@ set -ex
 BUILD_NAME=${BUILD_NAME:-buildkit}
 BUILD_VERSION=${BUILD_VERSION:-v0.16.0}
 
-BUILD_SOCKS5=${BUILD_SOCKS5:-"socks5://www.ali.wodcloud.com:1283"}
+BUILD_SOCKS5=${BUILD_SOCKS5}
 
-apk add --no-cache file bash clang lld musl-dev pkgconfig git make
-
+rm -rf ${BUILD_ROOT}/.tmp/${BUILD_NAME}-${BUILD_VERSION}
 if [ ! -d ${BUILD_ROOT}/.tmp/${BUILD_NAME}-${BUILD_VERSION} ]; then
-  git config --global http.proxy ${BUILD_SOCKS5}
+  if [ -n "${BUILD_SOCKS5}" ]; then
+    git config --global http.proxy ${BUILD_SOCKS5}
+  fi
   git clone --recurse-submodules -b ${BUILD_VERSION} https://github.com/moby/buildkit ${BUILD_ROOT}/.tmp/${BUILD_NAME}-${BUILD_VERSION}
 fi
+
+apk add --no-cache file bash clang lld musl-dev pkgconfig git make
 
 cd ${BUILD_ROOT}/.tmp/${BUILD_NAME}-${BUILD_VERSION}
 
