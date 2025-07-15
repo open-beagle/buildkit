@@ -12,7 +12,7 @@ docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.24-alpine && \
 docker run -it --rm \
   -v $PWD/:/go/src/github.com/open-beagle/buildkit \
   -w /go/src/github.com/open-beagle/buildkit \
-  -e BUILD_VERSION=v0.23.0 \
+  -e BUILD_VERSION=v0.23.2 \
   -e BUILD_SOCKS5=$SOCKS5_PROXY_LOCAL \
   registry.cn-qingdao.aliyuncs.com/wod/golang:1.24-alpine \
   bash src/build.sh
