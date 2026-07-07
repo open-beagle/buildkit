@@ -2,7 +2,7 @@
 set -ex
 
 BUILD_NAME=${BUILD_NAME:-buildkit}
-BUILD_VERSION=${BUILD_VERSION:-v0.16.0}
+BUILD_VERSION=${BUILD_VERSION:-v0.31.1}
 
 BUILD_SOCKS5=${BUILD_SOCKS5}
 
@@ -26,7 +26,7 @@ BUILD_LDFLAGS="-X ${GIT_PKG}/version.Version=${BUILD_VERSION} -X ${GIT_PKG}/vers
 export GOFLAGS="-mod=vendor"
 export CGO_ENABLED=0
 export GOGCFLAGS=${BUILDKIT_DEBUG:+"all=-N -l"}
-BUILDKITD_TAGS=${BUILDKITD_TAGS:-v0.16.0}
+BUILDKITD_TAGS=${BUILDKITD_TAGS:-v0.31.1}
 
 export TARGETPLATFORM="linux/amd64"
 xx-go build -ldflags "-s -w ${BUILD_LDFLAGS}" -o ${BUILD_ROOT}/.dist/amd64/buildctl ./cmd/buildctl

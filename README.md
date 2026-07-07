@@ -8,13 +8,12 @@
 
 ```bash
 # build cross
-docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.24-alpine && \
+docker pull registry.cn-qingdao.aliyuncs.com/wod/golang:1.26-alpine && \
 docker run -it --rm \
-  -v $PWD/:/go/src/github.com/open-beagle/buildkit \
-  -w /go/src/github.com/open-beagle/buildkit \
-  -e BUILD_VERSION=v0.23.2 \
-  -e BUILD_SOCKS5=$SOCKS5_PROXY_LOCAL \
-  registry.cn-qingdao.aliyuncs.com/wod/golang:1.24-alpine \
+  -v $PWD/:/go/src/github.com/open-beagle/ \
+  -w /go/src/github.com/open-beagle/ansible-docker-buildkit \
+  -e BUILD_VERSION=v0.31.1 \
+  registry.cn-qingdao.aliyuncs.com/wod/golang:1.26-alpine \
   bash src/build.sh
 ```
 
@@ -23,42 +22,13 @@ docker run -it --rm \
 ```bash
 docker run -it --rm \
   -v /opt/bin:/opt/bin \
-  registry.cn-qingdao.aliyuncs.com/wod/buildkit:v0.16.0 \
-  ash -c 'cp /usr/bin/buildctl /opt/bin/buildctl-linux-v0.16.0 && \
+  registry.cn-qingdao.aliyuncs.com/wod/buildkit:v0.31.1 \
+  ash -c 'cp /usr/bin/buildctl /opt/bin/buildctl-linux-v0.31.1 && \
     rm -rf /opt/bin/buildctl && \
-    ln -s /opt/bin/buildctl-linux-v0.16.0 /opt/bin/buildctl && \
-    chmod +x /opt/bin/buildctl-linux-v0.16.0 && \
-    cp /usr/bin/buildkitd /opt/bin/buildkitd-linux-v0.16.0 && \
+    ln -s /opt/bin/buildctl-linux-v0.31.1 /opt/bin/buildctl && \
+    chmod +x /opt/bin/buildctl-linux-v0.31.1 && \
+    cp /usr/bin/buildkitd /opt/bin/buildkitd-linux-v0.31.1 && \
     rm -rf /opt/bin/buildkitd && \
-    ln -s /opt/bin/buildkitd-linux-v0.16.0 /opt/bin/buildkitd && \
-    chmod +x /opt/bin/buildkitd-linux-v0.16.0'
-```
-
-## cache
-
-```bash
-# 构建缓存-->推送缓存至服务器
-docker run --rm \
-  -e PLUGIN_REBUILD=true \
-  -e PLUGIN_ENDPOINT=$PLUGIN_ENDPOINT \
-  -e PLUGIN_ACCESS_KEY=$PLUGIN_ACCESS_KEY \
-  -e PLUGIN_SECRET_KEY=$PLUGIN_SECRET_KEY \
-  -e DRONE_REPO_OWNER="open-beagle" \
-  -e DRONE_REPO_NAME="buildkit" \
-  -e PLUGIN_MOUNT="./.git,./.tmp" \
-  -v $(pwd):$(pwd) \
-  -w $(pwd) \
-  registry.cn-qingdao.aliyuncs.com/wod/devops-s3-cache:1.0
-
-# 读取缓存-->将缓存从服务器拉取到本地
-docker run --rm \
-  -e PLUGIN_RESTORE=true \
-  -e PLUGIN_ENDPOINT=$PLUGIN_ENDPOINT \
-  -e PLUGIN_ACCESS_KEY=$PLUGIN_ACCESS_KEY \
-  -e PLUGIN_SECRET_KEY=$PLUGIN_SECRET_KEY \
-  -e DRONE_REPO_OWNER="open-beagle" \
-  -e DRONE_REPO_NAME="buildkit" \
-  -v $(pwd):$(pwd) \
-  -w $(pwd) \
-  registry.cn-qingdao.aliyuncs.com/wod/devops-s3-cache:1.0
+    ln -s /opt/bin/buildkitd-linux-v0.31.1 /opt/bin/buildkitd && \
+    chmod +x /opt/bin/buildkitd-linux-v0.31.1'
 ```
