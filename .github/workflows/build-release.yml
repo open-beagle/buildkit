@@ -31,7 +31,7 @@ jobs:
             -w /go/src/github.com/open-beagle/buildkit \
             -e BUILD_VERSION=${{ env.BUILD_VERSION }} \
             golang:1.26-alpine \
-            bash -c "bash ./src/build.sh"
+            ash ./src/build.sh
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

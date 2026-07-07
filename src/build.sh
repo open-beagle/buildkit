@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 
 BUILD_ROOT="$(pwd)"
 BUILD_ARCH="${BUILD_ARCH:-amd64}"

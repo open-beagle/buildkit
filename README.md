@@ -14,7 +14,7 @@ docker run -it --rm \
   -w /go/src/github.com/open-beagle/ansible-docker-buildkit \
   -e BUILD_VERSION=v0.31.1 \
   registry.cn-qingdao.aliyuncs.com/wod/golang:1.26-alpine \
-  bash src/build.sh
+  ash src/build.sh
 ```
 
 ## deploy

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 set -ex
 
 BUILD_NAME=${BUILD_NAME:-buildkit}
