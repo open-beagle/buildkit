@@ -30,7 +30,7 @@ jobs:
           docker run --rm -v ${{ github.workspace }}:/go/src/github.com/open-beagle/buildkit \
             -w /go/src/github.com/open-beagle/buildkit \
             -e BUILD_VERSION=${{ env.BUILD_VERSION }} \
-            golang:1.26-alpine \
+            ghcr.io/open-beagle/golang:1.26-alpine \
             ash ./src/build.sh
 
       - name: Set up Docker Buildx
